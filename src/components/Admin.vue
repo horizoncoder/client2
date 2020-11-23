@@ -4,7 +4,7 @@
 
  <div class="form-price">
     <label for="exampleFormControlInput1">Id(only for change )</label>
-    <input v-model="prod._id" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="id" >
+    <input v-model="id" type="Name" class="form-control" id="exampleFormControlInput1" placeholder="id" @change="getProductById()">
 
   </div>
 
@@ -48,9 +48,18 @@ export default {
                 search:"",
                 products: [],
                 prod: {name:"", price:0, category:"", description:"",image:"",_id:""},
+                id:0
            };
         },
         methods:{
+          getProductById() {
+            Api().get(`/products/`+this.id)
+              .then((response) => {
+                  console.log(response.data)
+                  this.prod = response.data;
+              })  
+
+          },
           add: function(){
                Api().post(`/seeder/products`,{
                     name: this.prod.name,
