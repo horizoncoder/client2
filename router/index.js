@@ -7,26 +7,14 @@ import Thakyou from '@/components/Thakyou'
 import Admin from '@/components/Admin'
 import Login from '@/components/Login.vue'
 import Secure from '@/components/Secure.vue'
+import store from '../store/index'
 import Vue from 'vue'
 import Vuex from "vuex"
-
 
 
 Vue.use(Vuex);
 Vue.use(VueRouter);
 
-const store = new Vuex.Store(
-    {
-        state: {
-            authenticated: false
-        },
-        mutations: {
-            setAuthentication(state, status) {
-                state.authenticated = status;
-            }
-        }
-    }
-);
 const routes = [
     {
         path: '/',
@@ -76,7 +64,7 @@ const routes = [
         name: "secure",
         component: Secure,
         beforeEnter: (to, from, next) => {
-            if(store.state.authenticated == false) {
+            if(store.getters.getAuthentication == false) {
                 next(false);
             } else {
                 next();
@@ -90,7 +78,5 @@ const router = new VueRouter({
     routes,
     mode: 'history'
 });
-
-
 
 export default router;

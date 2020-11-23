@@ -11,7 +11,8 @@ export default new Vuex.Store({
     state: {
         cart: JSON.parse(localStorage.getItem('cart')) || [],
         charge: {},
-        user: null
+        user: null,
+        authenticated: false
     },
     mutations:{
         setCart: (state, payload) => {
@@ -39,7 +40,8 @@ export default new Vuex.Store({
     getters: {
         getCart: state => state.cart,
         getCharge: state => state.charge,
-      
+        getAuthentication: state => state.authenticated
+
     }
 });
 
